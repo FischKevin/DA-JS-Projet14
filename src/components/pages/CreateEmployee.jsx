@@ -1,7 +1,7 @@
 import Header from '../createEmployee/Header';
 import IdentityForm from '../createEmployee/IdentityForm';
-// import AddressForm from '../createEmployee/AddressForm';
-// import DepartmentForm from '../createEmployee/DepartmentForm';
+import AddressForm from '../createEmployee/AddressForm';
+import DepartmentForm from '../createEmployee/DepartmentForm';
 // import Button from '@mui/material/Button';
 // import useEmployeeForm from '../../hooks/useEmployeeForm';
 
@@ -12,9 +12,9 @@ function CreateEmployee() {
       <Header />
       <h2>Create Employee</h2>
       <IdentityForm />
-      {/* <AddressForm />
+      <AddressForm />
       <DepartmentForm />
-      <Button onClick={handleSubmit}>Save</Button> */}
+      {/* <Button onClick={handleSubmit}>Save</Button> */}
     </>
   )
 

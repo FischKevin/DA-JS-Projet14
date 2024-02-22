@@ -15,6 +15,15 @@ const useEmployeeForm = (initialState) => {
     setEmployee({ ...employee, [name]: value });
   };
 
+  const handleZipChange = (increase) => {
+    setEmployee(prevState => ({
+      ...prevState,
+      zipCode: increase 
+        ? parseInt(prevState.zipCode || 0, 10) + 1 
+        : Math.max(parseInt(prevState.zipCode || 0, 10) - 1, 0) // Empêche les valeurs négatives
+    }));
+  };
+
   // const handleSubmit = (event) => {
   //   event.preventDefault(); // Empêcher le rechargement de la page
   //   dispatch(addEmployee(employee));
@@ -22,7 +31,7 @@ const useEmployeeForm = (initialState) => {
   // };
 
   // return { employee, handleInputChange, handleDateChange, handleSubmit };
-  return { employee, handleInputChange, handleDateChange };
+  return { employee, handleInputChange, handleDateChange, handleZipChange};
 };
 
 export default useEmployeeForm;
