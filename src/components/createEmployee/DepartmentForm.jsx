@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import useEmployeeForm from '../../hooks/useEmployeeForm';
 
-function DepartmentForm() {
+function DepartmentForm({ onDataChange }) {
   const { employee, handleInputChange } = useEmployeeForm({
     department: '', 
   });
@@ -13,6 +15,10 @@ function DepartmentForm() {
     "Human Ressources",
     "Legal",
   ];
+
+  useEffect(() => {
+    onDataChange(employee);
+  }, [employee, onDataChange]);
 
   return (
     <FormControl fullWidth margin="normal" sx={{ maxWidth: 250, mx: "auto", width: '100%', marginTop: '20px' }}>
@@ -34,5 +40,9 @@ function DepartmentForm() {
     </FormControl>
   );
 }
+
+DepartmentForm.propTypes = {
+  onDataChange: PropTypes.func.isRequired,
+};
 
 export default DepartmentForm;

@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 const useEmployeeForm = (initialState) => {
   const [employee, setEmployee] = useState(initialState);
+  // const [employee] = useState(initialState);
   // const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
@@ -32,6 +33,7 @@ const useEmployeeForm = (initialState) => {
 
   // return { employee, handleInputChange, handleDateChange, handleSubmit };
   return { employee, handleInputChange, handleDateChange, handleZipChange};
+  // return { employee};
 };
 
 export default useEmployeeForm;

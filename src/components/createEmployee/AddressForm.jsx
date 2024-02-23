@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { TextField, Box, Select, FormControl, InputLabel, IconButton, MenuItem } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -6,7 +8,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import useEmployeeForm from '../../hooks/useEmployeeForm';
 import { states } from '../../data/states';
 
-function AddressForm() {
+function AddressForm({ onDataChange }) {
   const initialState = {
     street: '',
     city: '',
@@ -15,6 +17,10 @@ function AddressForm() {
   };
 
   const { employee, handleInputChange, handleZipChange  } = useEmployeeForm(initialState);
+
+  useEffect(() => {
+    onDataChange(employee);
+  }, [employee, onDataChange]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -81,5 +87,9 @@ function AddressForm() {
     </LocalizationProvider>
   );
 }
+
+AddressForm.propTypes = {
+  onDataChange: PropTypes.func.isRequired,
+};
 
 export default AddressForm;

@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { TextField, Box } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import useEmployeeForm from '../../hooks/useEmployeeForm';
 
-function IdentityForm() {
+function IdentityForm({ onDataChange }) {
   const initialState = {
     firstName: '',
     lastName: '',
@@ -13,14 +15,18 @@ function IdentityForm() {
 
   const { employee, handleInputChange, handleDateChange } = useEmployeeForm(initialState);
 
-  const styledTextField = (params) => (
-    <TextField
-      {...params}
-      fullWidth
-      margin="normal"
-      sx={{ marginBottom: 3 }} // Appliquez votre style personnalisé ici
-    />
-  );
+  // const styledTextField = (params) => (
+  //   <TextField
+  //     {...params}
+  //     fullWidth
+  //     margin="normal"
+  //     sx={{ marginBottom: 3 }}
+  //   />
+  // );
+
+  useEffect(() => {
+    onDataChange(employee);
+  }, [employee, onDataChange]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -42,27 +48,31 @@ function IdentityForm() {
             fullWidth
             margin="normal"
             sx={{ 
-              marginBottom: 1
+              marginBottom: 3
           }}
           />
           <DatePicker
             label="Date of Birth"
+            className='date-of-birth-picker'
             value={employee.dateOfBirth}
             onChange={(date) => handleDateChange('dateOfBirth', date)}
-            slots={{ textField: styledTextField }}
+            textField={(params) => <TextField {...params} fullWidth />}
           />
           <DatePicker
             label="Start Date"
+            className='start-date-picker'
             value={employee.startDate}
             onChange={(date) => handleDateChange('startDate', date)}
-            textField={(params) => <TextField {...params} fullWidth margin='normal' sx={{ 
-              marginBottom: 4
-          }} />}
+            textField={(params) => <TextField {...params} fullWidth />}
           />
         </form>
       </Box>
     </LocalizationProvider>
   );
 }
+
+IdentityForm.propTypes = {
+  onDataChange: PropTypes.func.isRequired,
+};
 
 export default IdentityForm;

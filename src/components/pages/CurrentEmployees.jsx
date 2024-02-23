@@ -1,8 +1,12 @@
+import { Link } from 'react-router-dom';
+import EmployeesTable from '../currentEmployees/EmployeesTable';
+
 function CurrentEmployees() {
   return (
     <div>
-      <h1>Current Employees</h1>
-      {/* Mettez ici le contenu ou la logique de votre composant */}
+      <h2>Current Employees</h2>
+      <EmployeesTable />
+      <Link to="/">Home</Link>
     </div>
   );
 }

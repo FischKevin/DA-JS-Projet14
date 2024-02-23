@@ -3,12 +3,15 @@ import { createSlice } from '@reduxjs/toolkit';
 export const employeeSlice = createSlice({
     name: 'employee',
     initialState: {
-        employeeData: {},
+        employeesList: [],
         showModal: false,
     },
     reducers: {
-        saveEmployeeData: (state, action) => {
-            state.employeeData = action.payload;
+        addEmployee: (state, action) => {
+            state.employeesList.push({
+                id: Date.now(), // Ajouter un ID unique ici
+                ...action.payload,
+            });
         },
         toggleModal: (state) => {
             state.showModal = !state.showModal;
@@ -16,6 +19,6 @@ export const employeeSlice = createSlice({
     },
 });
 
-export const { saveEmployeeData, toggleModal } = employeeSlice.actions;
+export const { addEmployee, toggleModal } = employeeSlice.actions;
 
 export default employeeSlice.reducer;
