@@ -24,7 +24,7 @@ function AddressForm({ onDataChange }) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Box sx={{ maxWidth: 250, mx: "auto", width: '100%', marginTop: '20px' }}>
+      <Box sx={{ maxWidth: 350, mx: "auto", width: '100%', marginTop: '20px' }}>
       <form>
           <fieldset style={{ border: '1px solid grey', padding: '0 20px 20px 20px', borderRadius: '5px' }}>
             <legend>Address</legend>

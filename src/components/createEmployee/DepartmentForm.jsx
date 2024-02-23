@@ -21,7 +21,7 @@ function DepartmentForm({ onDataChange }) {
   }, [employee, onDataChange]);
 
   return (
-    <FormControl fullWidth margin="normal" sx={{ maxWidth: 250, mx: "auto", width: '100%', marginTop: '20px' }}>
+    <FormControl fullWidth margin="normal" sx={{ maxWidth: 350, mx: "auto", width: '100%', marginTop: '20px' }}>
       <InputLabel id="department-label">Department</InputLabel>
       <Select
         labelId="department-label"

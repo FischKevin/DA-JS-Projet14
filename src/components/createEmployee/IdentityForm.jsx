@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { TextField, Box } from '@mui/material';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import useEmployeeForm from '../../hooks/useEmployeeForm';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import dayjs from 'dayjs';
 
 function IdentityForm({ onDataChange }) {
   const initialState = {
@@ -15,22 +17,13 @@ function IdentityForm({ onDataChange }) {
 
   const { employee, handleInputChange, handleDateChange } = useEmployeeForm(initialState);
 
-  // const styledTextField = (params) => (
-  //   <TextField
-  //     {...params}
-  //     fullWidth
-  //     margin="normal"
-  //     sx={{ marginBottom: 3 }}
-  //   />
-  // );
-
   useEffect(() => {
     onDataChange(employee);
   }, [employee, onDataChange]);
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Box sx={{ maxWidth: 250, mx: "auto", width: '100%' }}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Box sx={{ maxWidth: '350px', mx: "auto", width: '100%' }}>
         <form>
           <TextField
             label="First Name"
