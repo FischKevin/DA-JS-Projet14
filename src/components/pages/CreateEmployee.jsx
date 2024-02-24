@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import Header from '../createEmployee/Header';
 import IdentityForm from '../createEmployee/IdentityForm';
@@ -7,42 +7,47 @@ import DepartmentForm from '../createEmployee/DepartmentForm';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal, addEmployee } from '../../features/employee/employeeSlice';
-import SimpleDialog from 'simplereactdialogcomponent';
-// import useEmployeeForm from '../../hooks/useEmployeeForm';
+// import SimpleDialog from 'simplereactdialogcomponent';
+import Dialog from 'simplereactdialogcomponent';
+
+const initialFormData = {
+  firstName: '',
+  lastName: '',
+  startDate: null,
+  department: '',
+  dateOfBirth: null,
+  street: '',
+  city: '',
+  state: '',
+  zipCode: '',
+};
 
 function CreateEmployee() {
   const dispatch = useDispatch();
   const showModal = useSelector((state) => state.employee.showModal);
-  // const { employeeFormData } = useEmployeeForm(); 
-  // const { employee, handleInputChange, handleDateChange, handleZipChange } = useEmployeeForm({
-  // const { employee } = useEmployeeForm({
-  //   // Initialisez ici l'état initial si nécessaire, par exemple :
-  //   firstName: '',
-  //   lastName: '',
-  //   startDate: '',
-  //   department: '',
-  //   dateOfBirth: '',
-  //   street: '',
-  //   city: '',
-  //   state: '',
-  //   zipCode: '',
-  // });
-  
+  const [formData, setFormData] = useState(initialFormData);
+
   const dialogContent = {
-    title: 'Employee Created',
+    title: 'Employee Created!',
+    buttonText: 'Close',
   };
 
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    startDate: null,
-    department: '',
-    dateOfBirth: null,
-    street: '',
-    city: '',
-    state: '',
-    zipCode: '',
-  });
+  
+  useEffect(() => {
+
+
+    const content = {
+      title: 'Employee Created',
+      buttonText: 'Toto',
+    };  
+    console.log('Button text:', content.buttonText); // Ajoutez ceci pour déboguer
+    console.log('Button text:', content.buttonText); // Ajoutez ceci pour déboguer
+  }, []);
+
+  const handleCloseModal = () => {
+    dispatch(toggleModal(false)); // Fermer la modale
+    setFormData(initialFormData); // Réinitialiser le formulaire après la fermeture de la modale
+  };
 
   const handleDataChange = (newData) => {
     setFormData(prev => ({ ...prev, ...newData }));
@@ -51,25 +56,25 @@ function CreateEmployee() {
   const handleSubmit = () => {
     const payload = {
       ...formData,
-      id: Date.now(), // Assurez-vous d'ajouter un `id` unique ici
-      dateOfBirth: formData.dateOfBirth.toISOString(), // Convertir en string ISO
-      startDate: formData.startDate.toISOString(), // Convertir en string ISO
+      id: Date.now(), 
+      dateOfBirth: formData.dateOfBirth ? formData.dateOfBirth.toISOString() : null,
+      startDate: formData.startDate ? formData.startDate.toISOString() : null,
     };
   
-    console.log("Soumission des données : ", payload);
     dispatch(addEmployee(payload));
     dispatch(toggleModal(true));
+    setFormData(initialFormData);
   };
 
   return (
     <Box sx={{ maxWidth: 500, mx: 'auto' }}>
       <Header />
       <h2>Create Employee</h2>
-      <IdentityForm onDataChange={handleDataChange} />
-      <AddressForm onDataChange={handleDataChange} />
-      <DepartmentForm onDataChange={handleDataChange} />
+      <IdentityForm onDataChange={handleDataChange}  formData={formData} />
+      <AddressForm onDataChange={handleDataChange}  formData={formData} />
+      <DepartmentForm onDataChange={handleDataChange}  formData={formData} />
       <Button onClick={handleSubmit} sx={{ margin: '0 auto', display: 'block' }}>Save</Button>
-      {showModal && <SimpleDialog isOpen={showModal} onClose={() => dispatch(toggleModal())} content={dialogContent} />}
+      {showModal && <Dialog isOpen={showModal} onClose={handleCloseModal} content={dialogContent} />}
     </Box>
   )
 

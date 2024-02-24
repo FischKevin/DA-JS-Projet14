@@ -1,6 +1,5 @@
 import { useState } from 'react';
 // import { useDispatch } from 'react-redux';
-// import { addEmployee } from 'pathToYourReduxActions'; // Ajustez le chemin selon votre structure
 
 const useEmployeeForm = (initialState) => {
   const [employee, setEmployee] = useState(initialState);

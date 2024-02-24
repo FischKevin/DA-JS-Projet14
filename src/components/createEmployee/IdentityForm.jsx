@@ -11,8 +11,13 @@ function IdentityForm({ onDataChange }) {
   const initialState = {
     firstName: '',
     lastName: '',
-    dateOfBirth: null,
     startDate: null,
+    department: '',
+    dateOfBirth: null,
+    street: '',
+    city: '',
+    state: '',
+    zipCode: '',
   };
 
   const { employee, handleInputChange, handleDateChange } = useEmployeeForm(initialState);
