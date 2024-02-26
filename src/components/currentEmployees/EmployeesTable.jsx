@@ -39,12 +39,12 @@ function EmployeesTable() {
 
   const employeesList = useSelector((state) => state.employee.employeesList);
 
-const searchTerms = searchTerm.toLowerCase().split(' ').filter(term => term.length > 0);
+  const searchTerms = searchTerm.toLowerCase().split(' ').filter(term => term.length > 0);
 
-const filteredEmployees = employeesList.filter((employee) => {
-  const employeeDataString = `${employee.firstName.toLowerCase()} ${employee.lastName.toLowerCase()} ${employee.department.toLowerCase()} ${employee.street.toLowerCase()} ${employee.city.toLowerCase()} ${employee.state.toLowerCase()} ${employee.zipCode} ${formatDate(employee.dateOfBirth)} ${formatDate(employee.startDate)}`;
-  return searchTerms.every(term => employeeDataString.includes(term));
-});
+  const filteredEmployees = employeesList.filter((employee) => {
+    const employeeDataString = `${employee.firstName.toLowerCase()} ${employee.lastName.toLowerCase()} ${employee.department.toLowerCase()} ${employee.street.toLowerCase()} ${employee.city.toLowerCase()} ${employee.state.toLowerCase()} ${employee.zipCode} ${formatDate(employee.dateOfBirth)} ${formatDate(employee.startDate)}`;
+    return searchTerms.every(term => employeeDataString.includes(term));
+  });
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>

@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { TextField, Box } from '@mui/material';
-// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import { TextField, Box, FormHelperText } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import useEmployeeForm from '../../hooks/useEmployeeForm';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import dayjs from 'dayjs';
 
-function IdentityForm({ onDataChange }) {
+function IdentityForm({ onDataChange, errors }) {
   const initialState = {
     firstName: '',
     lastName: '',
@@ -35,6 +33,8 @@ function IdentityForm({ onDataChange }) {
             name="firstName"
             value={employee.firstName}
             onChange={handleInputChange}
+            error={!!errors.firstName}
+            helperText={errors.firstName || ''}
             fullWidth
             margin="normal"
           />
@@ -43,6 +43,8 @@ function IdentityForm({ onDataChange }) {
             name="lastName"
             value={employee.lastName}
             onChange={handleInputChange}
+            error={!!errors.lastName}
+            helperText={errors.lastName || ''}
             fullWidth
             margin="normal"
             sx={{ 
@@ -52,16 +54,26 @@ function IdentityForm({ onDataChange }) {
           <DatePicker
             label="Date of Birth"
             className='date-of-birth-picker'
-            value={employee.dateOfBirth}
-            onChange={(date) => handleDateChange('dateOfBirth', date)}
-            textField={(params) => <TextField {...params} fullWidth />}
+            value={employee.dateOfBirthDate}
+            onChange={(date) => handleDateChange('birthDate', date)}
+            slotProps={{
+              textField: {
+                error: !!errors.dateOfBirth,
+                helperText: errors.dateOfBirth || '',
+              },
+            }}
           />
           <DatePicker
             label="Start Date"
             className='start-date-picker'
             value={employee.startDate}
             onChange={(date) => handleDateChange('startDate', date)}
-            textField={(params) => <TextField {...params} fullWidth />}
+            slotProps={{
+              textField: {
+                error: !!errors.startDate,
+                helperText: errors.startDate || '',
+              },
+            }}
           />
         </form>
       </Box>

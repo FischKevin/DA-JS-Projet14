@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { TextField, Box, Select, FormControl, InputLabel, IconButton, MenuItem } from '@mui/material';
+import { TextField, Box, Select, FormControl, InputLabel, IconButton, MenuItem, FormHelperText } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -8,7 +8,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import useEmployeeForm from '../../hooks/useEmployeeForm';
 import { states } from '../../data/states';
 
-function AddressForm({ onDataChange }) {
+function AddressForm({ onDataChange, errors}) {
   const initialState = {
     street: '',
     city: '',
@@ -33,6 +33,8 @@ function AddressForm({ onDataChange }) {
               name="street"
               value={employee.street}
               onChange={handleInputChange}
+              error={!!errors.street}
+              helperText={errors.street || ''}
               fullWidth
               margin="normal"
             />
@@ -41,46 +43,50 @@ function AddressForm({ onDataChange }) {
               name="city"
               value={employee.city}
               onChange={handleInputChange}
+              error={!!errors.city}
+              helperText={errors.city || ''}
               fullWidth
               margin="normal"
             />
-            <FormControl fullWidth margin="normal">
+            <FormControl fullWidth margin="normal" error={!!errors.state}>
               <InputLabel id="state-label">State</InputLabel>
               <Select
                 labelId="state-label"
                 id="state-select"
                 value={employee.state}
-                label="State"
                 onChange={handleInputChange}
                 name="state"
-              >
+            >
               {states.map((state) => (
                 <MenuItem key={state.abbreviation} value={state.abbreviation}>
                   {state.name}
                 </MenuItem>
               ))}
               </Select>
+              {!!errors.state && <FormHelperText>{errors.state}</FormHelperText>}
             </FormControl>
-            <TextField
-              label="Zip Code"
-              name="zipCode"
-              value={employee.zipCode}
-              onChange={handleInputChange}
-              fullWidth
-              margin="normal"
-              InputProps={{
-                endAdornment: (
-                  <Box>
-                    <IconButton onClick={() => handleZipChange(true)}>
-                      <KeyboardArrowUpIcon />
-                    </IconButton>
-                    <IconButton onClick={() => handleZipChange(false)}>
-                      <KeyboardArrowDownIcon />
-                    </IconButton>
-                  </Box>
-                ),
-              }}
-            />
+              <TextField
+                label="Zip Code"
+                name="zipCode"
+                value={employee.zipCode}
+                onChange={handleInputChange}
+                error={!!errors.zipCode}
+                helperText={errors.zipCode || ''}
+                fullWidth
+                margin="normal"
+                InputProps={{
+                  endAdornment: (
+                <Box>
+                  <IconButton onClick={() => handleZipChange(true)}>
+                    <KeyboardArrowUpIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleZipChange(false)}>
+                    <KeyboardArrowDownIcon />
+                  </IconButton>
+                </Box>
+              ),
+            }}
+          />
           </fieldset>
         </form>
       </Box>
