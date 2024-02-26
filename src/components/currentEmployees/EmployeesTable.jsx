@@ -34,23 +34,17 @@ function EmployeesTable() {
     return format(new Date(date), 'MM/dd/yyyy');
   }
 
-  // const rows = useSelector(selectEmployees);
   const rows = useSelector(state => state.employee.employeesList);
   const [searchTerm, setSearchTerm] = useState('');
 
   const employeesList = useSelector((state) => state.employee.employeesList);
 
-  const filteredEmployees = employeesList.filter((employee) =>
-    employee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    employee.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    employee.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    employee.street.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    employee.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    employee.state.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    employee.zipCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    formatDate(employee.dateOfBirth).includes(searchTerm) ||
-    formatDate(employee.startDate).includes(searchTerm)
-  );
+const searchTerms = searchTerm.toLowerCase().split(' ').filter(term => term.length > 0);
+
+const filteredEmployees = employeesList.filter((employee) => {
+  const employeeDataString = `${employee.firstName.toLowerCase()} ${employee.lastName.toLowerCase()} ${employee.department.toLowerCase()} ${employee.street.toLowerCase()} ${employee.city.toLowerCase()} ${employee.state.toLowerCase()} ${employee.zipCode} ${formatDate(employee.dateOfBirth)} ${formatDate(employee.startDate)}`;
+  return searchTerms.every(term => employeeDataString.includes(term));
+});
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
