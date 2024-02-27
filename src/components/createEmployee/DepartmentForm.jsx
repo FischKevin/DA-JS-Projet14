@@ -34,6 +34,7 @@ function DepartmentForm({ onDataChange, errors }) {
         value={employee.department}
         onChange={handleInputChange}
         name="department"
+        label="Department"
       >
         {departments.map((department, index) => (
           <MenuItem key={index} value={department}>

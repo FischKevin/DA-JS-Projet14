@@ -48,23 +48,24 @@ function AddressForm({ onDataChange, errors}) {
               fullWidth
               margin="normal"
             />
-            <FormControl fullWidth margin="normal" error={!!errors.state}>
-              <InputLabel id="state-label">State</InputLabel>
-              <Select
-                labelId="state-label"
-                id="state-select"
-                value={employee.state}
-                onChange={handleInputChange}
-                name="state"
-            >
-              {states.map((state) => (
-                <MenuItem key={state.abbreviation} value={state.abbreviation}>
-                  {state.name}
-                </MenuItem>
-              ))}
-              </Select>
-              {!!errors.state && <FormHelperText>{errors.state}</FormHelperText>}
-            </FormControl>
+              <FormControl fullWidth margin="normal" error={!!errors.state}>
+                <InputLabel id="state-label">State</InputLabel>
+                <Select
+                  labelId="state-label"
+                  id="state-select"
+                  value={employee.state}
+                  onChange={handleInputChange}
+                  name="state"
+                  label="State" // Ajoutez cette ligne
+                >
+                  {states.map((state) => (
+                    <MenuItem key={state.abbreviation} value={state.abbreviation}>
+                      {state.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {!!errors.state && <FormHelperText>{errors.state}</FormHelperText>}
+              </FormControl>
               <TextField
                 label="Zip Code"
                 name="zipCode"
