@@ -1,4 +1,4 @@
-import cypress from 'cypress';
+// import cypress from 'cypress';
 
 module.exports = {
     root: true,

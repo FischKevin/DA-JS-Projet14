@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box } from '@mui/material';
 import Header from '../createEmployee/Header';
 import IdentityForm from '../createEmployee/IdentityForm';
@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleModal, addEmployee } from '../../features/employee/employeeSlice';
 import Dialog from 'simplereactdialogcomponent';
+import dayjs from 'dayjs';
 
 const initialFormData = {
   firstName: '',
@@ -49,7 +50,9 @@ function CreateEmployee() {
     if (!formData.lastName) newErrors.lastName = 'Last name is required';
     if (!formData.startDate) newErrors.startDate = 'Start date is required';
     if (!formData.department) newErrors.department = 'Department is required';
-    if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of birth is required';
+    if (!formData.dateOfBirth || !dayjs(formData.dateOfBirth).isValid()) {
+      newErrors.dateOfBirth = 'Date of birth is required';
+    }
     if (!formData.street) newErrors.street = 'Street is required';
     if (!formData.city) newErrors.city = 'City is required';
     if (!formData.state) newErrors.state = 'State is required';

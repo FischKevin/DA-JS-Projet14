@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Utilisez `Routes` au lieu de `Switch` si vous êtes sur React Router v6
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CreateEmployee from './components/pages/CreateEmployee';
-import CurrentEmployees from './components/pages/CurrentEmployees'; // Assurez-vous d'avoir un composant pour cela
+import CurrentEmployees from './components/pages/CurrentEmployees';
 import './App.css';
 
 function App() {

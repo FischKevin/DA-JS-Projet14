@@ -1,10 +1,7 @@
 import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
 
 const useEmployeeForm = (initialState) => {
   const [employee, setEmployee] = useState(initialState);
-  // const [employee] = useState(initialState);
-  // const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -22,8 +19,11 @@ const useEmployeeForm = (initialState) => {
     setEmployee({ ...employee, [name]: value });
   };
 
-  const handleDateChange = (name, value) => {
-    setEmployee({ ...employee, [name]: value });
+  const handleDateChange = (name, date) => {
+    setEmployee(prevEmployee => ({
+      ...prevEmployee,
+      [name]: date // Assurez-vous que 'date' est dans le format attendu ou converti correctement.
+    }));
   };
 
   const handleZipChange = (increase) => {
@@ -35,10 +35,7 @@ const useEmployeeForm = (initialState) => {
     }));
   };
 
-
-  // return { employee, handleInputChange, handleDateChange, handleSubmit };
   return { employee, handleInputChange, handleDateChange, handleZipChange};
-  // return { employee};
 };
 
 export default useEmployeeForm;

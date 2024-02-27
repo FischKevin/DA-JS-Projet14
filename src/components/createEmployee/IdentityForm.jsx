@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { TextField, Box, FormHelperText } from '@mui/material';
+import { TextField, Box } from '@mui/material';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import useEmployeeForm from '../../hooks/useEmployeeForm';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -55,7 +55,7 @@ function IdentityForm({ onDataChange, errors }) {
             label="Date of Birth"
             className='date-of-birth-picker'
             value={employee.dateOfBirthDate}
-            onChange={(date) => handleDateChange('birthDate', date)}
+            onChange={(date) => {handleDateChange('dateOfBirth', date);}}
             slotProps={{
               textField: {
                 error: !!errors.dateOfBirth,
@@ -83,6 +83,7 @@ function IdentityForm({ onDataChange, errors }) {
 
 IdentityForm.propTypes = {
   onDataChange: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 export default IdentityForm;

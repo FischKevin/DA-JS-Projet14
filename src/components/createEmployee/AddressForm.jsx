@@ -96,6 +96,7 @@ function AddressForm({ onDataChange, errors}) {
 
 AddressForm.propTypes = {
   onDataChange: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 export default AddressForm;

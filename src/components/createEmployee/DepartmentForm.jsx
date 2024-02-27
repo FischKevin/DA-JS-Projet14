@@ -50,6 +50,7 @@ function DepartmentForm({ onDataChange, errors }) {
 
 DepartmentForm.propTypes = {
   onDataChange: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 export default DepartmentForm;
