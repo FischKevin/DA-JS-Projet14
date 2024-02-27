@@ -7,7 +7,7 @@ const useEmployeeForm = (initialState) => {
     const { name, value } = event.target;
   
     // Restriction pour les champs firstName, lastName, et city pour n'accepter que des lettres
-    if (["firstName", "lastName", "city"].includes(name) && !/^[A-Za-z]*$/.test(value)) return;
+    if (["firstName", "lastName"].includes(name) && !/^[A-Za-z\s-]*$/.test(value)) return;
   
     // Restriction pour le champ zipCode pour n'accepter que des chiffres
     if (name === "zipCode" && !/^\d*$/.test(value)) return;
