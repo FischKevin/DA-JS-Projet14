@@ -4,7 +4,7 @@ export const employeeSlice = createSlice({
     name: 'employee',
     initialState: {
         employeesList: [],
-        showModal: false,
+        showDialogl: false,
     },
     reducers: {
         addEmployee: (state, action) => {
@@ -13,12 +13,12 @@ export const employeeSlice = createSlice({
                 ...action.payload,
             });
         },
-        toggleModal: (state) => {
-            state.showModal = !state.showModal;
+        toggleDialog: (state) => {
+            state.showDialog = !state.showDialog;
         },
     },
 });
 
-export const { addEmployee, toggleModal } = employeeSlice.actions;
+export const { addEmployee, toggleDialog } = employeeSlice.actions;
 
 export default employeeSlice.reducer;

@@ -6,7 +6,7 @@ import AddressForm from '../createEmployee/AddressForm';
 import DepartmentForm from '../createEmployee/DepartmentForm';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleModal, addEmployee } from '../../features/employee/employeeSlice';
+import { toggleDialog, addEmployee } from '../../features/employee/employeeSlice';
 import Dialog from 'simplereactdialogcomponent';
 import dayjs from 'dayjs';
 
@@ -24,7 +24,7 @@ function CreateEmployee() {
   };
 
   const dispatch = useDispatch();
-  const showModal = useSelector((state) => state.employee.showModal);
+  const showDialog = useSelector((state) => state.employee.showDialog);
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
   
@@ -44,8 +44,8 @@ function CreateEmployee() {
     buttonText: 'Close',
   };
   
-  const handleCloseModal = () => {
-    dispatch(toggleModal(false)); // Fermer la modale
+  const handleCloseDialog = () => {
+    dispatch(toggleDialog(false)); // Fermer la modale
     setFormData(initialFormData); // Réinitialiser le formulaire après la fermeture de la modale
   };
 
@@ -85,7 +85,7 @@ function CreateEmployee() {
   
     // Soumission du formulaire si aucune erreur
     dispatch(addEmployee(payload));
-    dispatch(toggleModal(true));
+    dispatch(toggleDialog(true));
     setFormData(initialFormData); // Réinitialiser le formulaire
     setErrors({}); // Réinitialiser les erreurs après la soumission réussie
   };
@@ -99,7 +99,7 @@ function CreateEmployee() {
       <AddressForm key={`address-${resetKeyAddress}`} onDataChange={handleDataChange} errors={errors} formData={formData} />
       <DepartmentForm key={`department-${resetKeyDepartment}`} onDataChange={handleDataChange} errors={errors} formData={formData} />
       <Button onClick={handleSubmit} sx={{ margin: '0 auto', display: 'block' }}>Save</Button>
-      {showModal && <Dialog isOpen={showModal} onClose={() => {handleCloseModal(); handleReset();}}  content={dialogContent} />}
+      {showDialog && <Dialog isOpen={showDialog} onClose={() => {handleCloseDialog(); handleReset();}}  content={dialogContent} />}
     </Box>
   )
 
