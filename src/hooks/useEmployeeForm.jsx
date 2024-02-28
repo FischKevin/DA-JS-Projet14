@@ -7,13 +7,13 @@ const useEmployeeForm = (initialState) => {
     const { name, value } = event.target;
   
     // Restriction pour les champs firstName, lastName, et city pour n'accepter que des lettres
-    if (["firstName", "lastName"].includes(name) && !/^[A-Za-z\s-]*$/.test(value)) return;
+    if (["firstName", "lastName", "city"].includes(name) && !/^[A-Za-zÀ-ÖØ-öø-ÿ\s-']*$/.test(value)) return;
   
     // Restriction pour le champ zipCode pour n'accepter que des chiffres
     if (name === "zipCode" && !/^\d*$/.test(value)) return;
 
     // Restriction pour le champ street pour n'accepter que des lettres, des chiffres, des espaces, des tirets et des apostrophes
-   if (name === "street" && !/^[A-Za-z0-9 \-']*$/.test(value)) return;
+   if (name === "street" && !/^[A-Za-zÀ-ÖØ-öø-ÿ0-9 \-']*$/.test(value)) return;
   
     // Mise à jour de l'état avec la nouvelle valeur
     setEmployee({ ...employee, [name]: value });
