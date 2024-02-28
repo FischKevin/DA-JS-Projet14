@@ -10,23 +10,34 @@ import { toggleModal, addEmployee } from '../../features/employee/employeeSlice'
 import Dialog from 'simplereactdialogcomponent';
 import dayjs from 'dayjs';
 
-const initialFormData = {
-  firstName: '',
-  lastName: '',
-  startDate: null,
-  department: '',
-  dateOfBirth: null,
-  street: '',
-  city: '',
-  state: '',
-  zipCode: '',
-};
-
 function CreateEmployee() {
+  const initialFormData = {
+    firstName: '',
+    lastName: '',
+    startDate: null,
+    department: '',
+    dateOfBirth: null,
+    street: '',
+    city: '',
+    state: '',
+    zipCode: '',
+  };
+
   const dispatch = useDispatch();
   const showModal = useSelector((state) => state.employee.showModal);
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
+  
+  const [resetKeyIdentity, setResetKeyIdentity] = useState(0);
+  const [resetKeyAddress, setResetKeyAddress] = useState(0);
+  const [resetKeyDepartment, setResetKeyDepartment] = useState(0);
+
+  const handleReset = () => {
+    setFormData(initialFormData);
+    setResetKeyIdentity(prevKey => prevKey + 1);
+    setResetKeyAddress(prevKey => prevKey + 1);
+    setResetKeyDepartment(prevKey => prevKey + 1);
+  };
 
   const dialogContent = {
     title: 'Employee Created!',
@@ -84,11 +95,11 @@ function CreateEmployee() {
     <Box sx={{ maxWidth: 500, mx: 'auto' }}>
       <Header />
       <h2>Create Employee</h2>
-      <IdentityForm onDataChange={handleDataChange} errors={errors} formData={formData} />
-      <AddressForm onDataChange={handleDataChange} errors={errors} formData={formData} />
-      <DepartmentForm onDataChange={handleDataChange} errors={errors} formData={formData} />
+      <IdentityForm key={`identity-${resetKeyIdentity}`} onDataChange={handleDataChange} errors={errors} formData={formData} />
+      <AddressForm key={`address-${resetKeyAddress}`} onDataChange={handleDataChange} errors={errors} formData={formData} />
+      <DepartmentForm key={`department-${resetKeyDepartment}`} onDataChange={handleDataChange} errors={errors} formData={formData} />
       <Button onClick={handleSubmit} sx={{ margin: '0 auto', display: 'block' }}>Save</Button>
-      {showModal && <Dialog isOpen={showModal} onClose={handleCloseModal} content={dialogContent} />}
+      {showModal && <Dialog isOpen={showModal} onClose={() => {handleCloseModal(); handleReset();}}  content={dialogContent} />}
     </Box>
   )
 
