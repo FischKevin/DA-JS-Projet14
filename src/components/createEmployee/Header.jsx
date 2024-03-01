@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+// Define the Header functional component
 function Header() {
 
   return (

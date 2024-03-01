@@ -11,6 +11,7 @@ import Dialog from 'simplereactdialogcomponent';
 import dayjs from 'dayjs';
 
 function CreateEmployee() {
+  // Initial state for form data and form errors
   const initialFormData = {
     firstName: '',
     lastName: '',
@@ -23,15 +24,18 @@ function CreateEmployee() {
     zipCode: '',
   };
 
+  // Redux hook to dispatch actions
   const dispatch = useDispatch();
+  // Accessing Redux state to check if dialog should be shown
   const showDialog = useSelector((state) => state.employee.showDialog);
+  // State hooks for form data, errors, and resetting form sections
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState({});
-  
   const [resetKeyIdentity, setResetKeyIdentity] = useState(0);
   const [resetKeyAddress, setResetKeyAddress] = useState(0);
   const [resetKeyDepartment, setResetKeyDepartment] = useState(0);
 
+  // Resets form data and increments keys to reset child components
   const handleReset = () => {
     setFormData(initialFormData);
     setResetKeyIdentity(prevKey => prevKey + 1);
@@ -39,24 +43,28 @@ function CreateEmployee() {
     setResetKeyDepartment(prevKey => prevKey + 1);
   };
 
+  // Content for the dialog shown upon successful form submission
   const dialogContent = {
     title: 'Employee Created!',
     buttonText: 'Close',
   };
   
+  // Closes dialog and resets form data
   const handleCloseDialog = () => {
-    dispatch(toggleDialog(false)); // Fermer la modale
-    setFormData(initialFormData); // Réinitialiser le formulaire après la fermeture de la modale
+    dispatch(toggleDialog(false)); 
+    setFormData(initialFormData); 
   };
 
+  // Updates form data with changes from child components
   const handleDataChange = (newData) => {
     setFormData(prev => ({ ...prev, ...newData }));
   };
 
+  // Handles form submission with validation and dispatches actions
   const handleSubmit = () => {
     let newErrors = {};
   
-    // Validation pour chaque champ requis
+    // Validation logic
     if (!formData.firstName) newErrors.firstName = 'First name is required';
     if (!formData.lastName) newErrors.lastName = 'Last name is required';
     if (!formData.startDate) newErrors.startDate = 'Start date is required';
@@ -69,28 +77,29 @@ function CreateEmployee() {
     if (!formData.state) newErrors.state = 'State is required';
     if (!formData.zipCode) newErrors.zipCode = 'Zip code is required';
   
-    // Vérifiez s'il y a des erreurs
+    // Set errors or proceed with form submission
     if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors); // Mettre à jour l'état des erreurs avec les nouvelles erreurs
-      return; // Empêcher la soumission si des erreurs sont détectées
+      setErrors(newErrors); 
+      return;
     }
   
-    // Préparation du payload si tous les champs sont valides
+    // Prepares payload and dispatches addEmployee action
     const payload = {
       ...formData,
       id: Date.now(),
+      // Ensures dates are stored in ISO format
       dateOfBirth: formData.dateOfBirth ? formData.dateOfBirth.toISOString() : null,
       startDate: formData.startDate ? formData.startDate.toISOString() : null,
     };
   
-    // Soumission du formulaire si aucune erreur
+    
     dispatch(addEmployee(payload));
-    dispatch(toggleDialog(true));
-    setFormData(initialFormData); // Réinitialiser le formulaire
-    setErrors({}); // Réinitialiser les erreurs après la soumission réussie
+    dispatch(toggleDialog(true)); // Opens dialog
+    setFormData(initialFormData); // Resets form data
+    setErrors({}); // Clears errors
   };
   
-
+  // Component layout with form sections and submit button
   return (
     <Box sx={{ maxWidth: 500, mx: 'auto' }}>
       <Header />
