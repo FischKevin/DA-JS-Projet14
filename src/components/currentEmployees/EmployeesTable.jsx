@@ -79,7 +79,7 @@ function EmployeesTable() {
           getRowId={(row) => `${row.firstName}-${row.lastName}-${row.startDate}`}
         />
         {/* Display the total number of entries for user reference */}
-        <div style={{position: 'relative', top: '-36px', left: '-535px', fontSize: '0.875rem' }}>
+        <div style={{position: 'relative', top: '-36px', left: '-430px', fontSize: '0.875rem' }}>
           Total Entries: {employeesList.length}
         </div>
       </div>
