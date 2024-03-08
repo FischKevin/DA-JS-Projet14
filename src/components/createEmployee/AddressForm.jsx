@@ -63,7 +63,7 @@ function AddressForm({ onDataChange, errors}) {
                 value={employee.state}
                 onChange={handleInputChange}
                 name="state"
-                label="State" // Ajoutez cette ligne
+                label="State"
               >
                 {states.map((state) => (
                   <MenuItem key={state.abbreviation} value={state.abbreviation}>
