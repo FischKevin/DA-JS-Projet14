@@ -2,7 +2,7 @@
 
 Project 14 from JavaScript React developper path at OpenClassrooms
 
-[https://da-js-projet12.vercel.app](https://da-js-projet14.vercel.app)
+[https://da-js-projet14.vercel.app](https://da-js-projet14.vercel.app)
 
 # Switch a jQuery library to React
 
